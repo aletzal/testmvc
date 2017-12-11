@@ -1,7 +1,7 @@
 
 Test app (booking of tickets to the cinema) - Spring Boot, MVC, Data JPA with javax.validation and hsqldb (temporary) 
 
-At now works not all functions: show list tickets stored in db, add new ticket, delete ticket.
+At now service has the following functions: show list tickets stored in db, add new ticket, edit ticket, delete ticket.
 
 To compile and run use Maven commands:
 
