@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Бронирование нового билета</title>
+    <title>Редактирование билета</title>
     <style>
         .error {
             color: red;
@@ -13,10 +13,15 @@
 </head>
 <body>
 
-<h3>Добавление нового билета</h3>
+<h3>Редактирование билета номер ${pid}</h3>
 
 <table cellspacing="4" style="text-align:left">
-    <form:form action="addTicket.do" commandName="ticketForm">
+    <form:form action="editTicket.do" commandName="ticketForm">
+        <tr>
+            <td></td>
+            <td align="left" width="40%"><form:hidden path="id" size="30"/></td>
+            <td align="left"><form:errors path="id" cssClass="error"/></td>
+        </tr>
         <tr>
             <td align="left" width="20%">Название фильма:</td>
             <td align="left" width="40%"><form:input path="film" size="30"/></td>
@@ -55,7 +60,7 @@
         <tr>
             <td></td>
             <td align="center"><input type="submit" value="Отправить"/>
-            <input type="button" onclick="ListTickets()" value="Отмена"/></td>
+                <input type="button" onclick="ListTickets()" value="Отмена"/></td>
             <td></td>
         </tr>
     </form:form>

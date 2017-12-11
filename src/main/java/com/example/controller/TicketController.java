@@ -25,28 +25,25 @@ public class TicketController {
     @Autowired
     private TicketServiceImpl ticketServiceImpl;
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public @ResponseBody
-    List<TicketEntity> getAllUsers (){
-        return ticketServiceImpl.findAll();
-    }
-
     @RequestMapping(value = "/showTickets",method = RequestMethod.GET)
-    public @ResponseBody List<TicketEntity> showPage(){
+    public @ResponseBody List<TicketEntity> getAllTickets(){
         List<TicketEntity> tickets = ticketServiceImpl.findAll();
+        log.info("************************** Got All Tickets ***************************");
+        log.info("Количество билетов: " + tickets.size());
+        log.info("**********************************************************************");
         return tickets;
     }
 
+//    Adding new ticket
     @RequestMapping(value = "/addTicket",method = RequestMethod.GET)
-    public String showaddTicket(Map<String, Object> model){
+    public String showAddTicket(Map<String, Object> model){
         TicketEntity entity = new TicketEntity();
         model.put("ticketForm",entity);
         return "save";
     }
 
     @RequestMapping(value = "/addTicket.do", method = RequestMethod.POST)
-    public String addTicket(@Valid @ModelAttribute("ticketForm") TicketEntity ticketEntity, BindingResult result,
-                            Map<String,Object> model){
+    public String addTicket(@Valid @ModelAttribute("ticketForm") TicketEntity ticketEntity, BindingResult result){
         log.info("***************************** Got Object *****************************");
         log.info(ticketEntity.toString());
         log.info("**********************************************************************");
@@ -57,7 +54,31 @@ public class TicketController {
         return "listusers";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/editTicket",method = RequestMethod.GET)
+    public String showEditTicket(@RequestParam(value = "pid") Long ticket_id, Map<String, Object> model){
+        TicketEntity entity = ticketServiceImpl.findById(ticket_id);
+        log.info("************** Getting Object by id = "+ ticket_id +" ****************");
+        log.info(entity.toString());
+        log.info("**********************************************************************");
+        model.put("ticketForm",entity);
+        model.put("pid",ticket_id);
+        return "edit";
+    }
+
+    @RequestMapping(value = "/editTicket.do", method = RequestMethod.POST)
+    public String editTicket(@Valid @ModelAttribute("ticketForm") TicketEntity ticketEntity, BindingResult result){
+        log.info("***************************** Editing Object *****************************");
+        log.info(ticketEntity.toString());
+        log.info("**********************************************************************");
+        if (result.hasErrors()) {
+            return "edit";
+        }
+//        add method do persist or merge if entity exists
+        ticketServiceImpl.add(ticketEntity);
+        return "listusers";
+    }
+
+    @RequestMapping(value = "/deleteTicket", method = RequestMethod.GET)
     public String getDelete(@RequestParam(value = "pid") Long ticket_id){
         log.info("*********************** Deleting request *****************************");
         log.info("Id = " + ticket_id);

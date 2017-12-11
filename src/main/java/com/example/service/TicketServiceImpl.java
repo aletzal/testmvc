@@ -28,6 +28,10 @@ public class TicketServiceImpl implements TicketService{
         return ticketRepository.findByName(name);
     }
 
+    public TicketEntity findById(Long id) {
+        return ticketRepository.findOne(id);
+    }
+
     public void add(TicketEntity ticketEntity){
         ticketRepository.save(ticketEntity);
     }

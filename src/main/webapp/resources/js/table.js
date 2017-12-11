@@ -21,8 +21,12 @@ var GetTickets = function () {
 }
 
 function addRow(data_id,data_film,data_name,data_email,data_hall,data_row,data_place,data_status){
-    img_edit = '<a href="/sys/edit?pid='+data_id+'"><img src="/resources/img/edit.png"/></a>';
-    img_delete = '<a href="/sys/delete?pid='+data_id+'"><img src="/resources/img/delete.png"/></a>';
+    img_edit = '<a href="/sys/editTicket?pid='+data_id+'"><img src="/resources/img/edit.png"/></a>';
+    img_delete = '<a href="/sys/deleteTicket?pid='+data_id+'"><img src="/resources/img/delete.png"/></a>';
     $('#main_table tr:last').after(
         '<tr><td>'+data_id+'</td><td>'+data_film+'</td><td>'+data_name+'</td><td>'+data_email+'</td><td>'+data_hall+'</td><td>'+data_row+'</td><td>'+data_place+'</td><td>'+data_status+'</td>'+'<td>' + img_edit + '</td><td>' + img_delete + '</td></tr>');
+}
+
+function ListTickets() {
+    window.location.replace(window.location.protocol + '//' + window.location.host);
 }
