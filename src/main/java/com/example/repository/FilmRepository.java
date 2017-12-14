@@ -1,7 +1,8 @@
 package com.example.repository;
 
-/**
- * Created by Admin on 11.12.17.
- */
-public class FilmRepository {
+import com.example.model.FilmEntity;
+import org.springframework.data.repository.CrudRepository;
+
+public interface FilmRepository extends CrudRepository<FilmEntity,Long>{
+    FilmEntity findById(Long id);
 }

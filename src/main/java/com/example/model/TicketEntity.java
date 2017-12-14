@@ -1,55 +1,67 @@
 package com.example.model;
 
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.*;
+
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 
 @Entity
 @Table(name = "Tickets")
 public class TicketEntity {
 
+    @TableGenerator(name = "ticket_Gen", initialValue = 10)
     @Id()
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ticket_Gen")
     private long id;
 
-    @NotEmpty(message = "Film name.")
-    @Column(name = "film")
-    private String film;
+    @NotNull(message = "Выберите фильм")
+    @ManyToOne
+    @JoinColumn(name = "film_id")
+    private FilmEntity film;
 
-    @NotEmpty(message = "Пожалуйста, введите ваше имя.")
+    @NotEmpty(message = "Введите ваше имя.")
     @Size(min = 3, max = 30, message = "Имя должно содержать от 3 до 30 символов.")
     @Column(name = "name")
     private String name;
 
-    @NotEmpty(message = "Пожалуйста, введите email.")
+    @NotEmpty(message = "Введите email.")
     @Email(message = "Некорректный адрес email.")
     @Column(name = "email")
     private String email;
 
-    @Positive(message = "значение не может быть <=0.")
+    @NumberFormat(style = Style.NUMBER)
+//    @Positive(message = "значение не может быть <=0.")
+    @Min(value = 1,message = "Введите целое число от 1 до 3.")
+    @Max(value = 3, message = "Введите целое число от 1 до 3.")
     @Column(name = "hall")
     private int hall;
 
-    @Positive (message = "значение не может быть <=0.")
+    @NumberFormat(style = Style.NUMBER)
+//    @Positive (message = "значение не может быть <=0.")
+    @Min(value = 1,message = "Введите целое число от 1 до 30.")
+    @Max(value = 30, message = "Введите целое число от 1 до 30.")
     @Column(name = "row")
     private int row;
 
-    @Positive (message = "значение не может быть <=0.")
+    @NumberFormat(style = Style.NUMBER)
+//    @Positive (message = "значение не может быть <=0.")
+    @Min(value = 1,message = "Введите целое число от 1 до 80.")
+    @Max(value = 80, message = "Введите целое число от 1 до 80.")
     @Column(name = "place")
     private int place;
 
-    @NotEmpty (message = "Пожалуйста, введите статус.")
+    @NotEmpty (message = "Введите статус.")
+    @Pattern(regexp="^(accepted|paid|cancelled)$", message = "Неправильный статус")
     @Column(name = "status")
     private String status;
 
     public TicketEntity() {
     }
 
-    public TicketEntity(String film, String name, String email, int hall, int row, int place, String status) {
+    public TicketEntity(FilmEntity film, @NotEmpty(message = "Пожалуйста, введите ваше имя.") @Size(min = 3, max = 30, message = "Имя должно содержать от 3 до 30 символов.") String name, @NotEmpty(message = "Пожалуйста, введите email.") @Email(message = "Некорректный адрес email.") String email, @Min(value = 1, message = "введите целое число от 1 до 3.") @Max(value = 3, message = "введите целое число от 1 до 3.") int hall, @Min(value = 1, message = "введите целое число от 1 до 30.") @Max(value = 30, message = "введите целое число от 1 до 30.") int row, @Min(value = 1, message = "введите целое число от 1 до 80.") @Max(value = 80, message = "введите целое число от 1 до 80.") int place, @NotEmpty(message = "Пожалуйста, введите статус.") String status) {
         this.film = film;
         this.name = name;
         this.email = email;
@@ -67,11 +79,11 @@ public class TicketEntity {
         this.id = id;
     }
 
-    public String getFilm() {
+    public FilmEntity getFilm() {
         return film;
     }
 
-    public void setFilm(String film) {
+    public void setFilm(FilmEntity film) {
         this.film = film;
     }
 
@@ -127,7 +139,7 @@ public class TicketEntity {
     public String toString() {
         return "TicketEntity{" +
                 "id=" + id +
-                ", film='" + film + '\'' +
+                ", film=" + film +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", hall=" + hall +

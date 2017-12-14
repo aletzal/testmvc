@@ -6,11 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service("jpaUserEntityService")
+@Service("jpaTicketEntityService")
 @Repository
 @Transactional
 public class TicketServiceImpl implements TicketService{

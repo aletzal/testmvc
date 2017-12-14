@@ -1,7 +1,8 @@
 package com.example.service;
 
-/**
- * Created by Admin on 11.12.17.
- */
-public class FilmService {
+import com.example.model.FilmEntity;
+
+public interface FilmService {
+    Iterable<FilmEntity> findAll();
+    FilmEntity findById(Long id);
 }

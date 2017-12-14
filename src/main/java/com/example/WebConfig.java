@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -32,7 +34,14 @@ public class WebConfig extends WebMvcConfigurerAdapter implements WebApplication
         internalResourceViewResolver.setSuffix(".jsp");
         return internalResourceViewResolver;
     }
-
+    @Bean(name = "messageSource")
+    public ResourceBundleMessageSource getMessageSource() {
+        ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
+        resource.setBasename("messages");
+//        resource.setCacheSeconds(1);
+//        resource.setDefaultEncoding("UTF-8");
+        return resource;
+    }
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");

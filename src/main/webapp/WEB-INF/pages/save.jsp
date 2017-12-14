@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
@@ -18,8 +19,29 @@
 <table cellspacing="4" style="text-align:left">
     <form:form action="addTicket.do" commandName="ticketForm">
         <tr>
-            <td align="left" width="20%">Название фильма:</td>
-            <td align="left" width="40%"><form:input path="film" size="30"/></td>
+            <td></td>
+            <td align="left" width="40%"><form:hidden path="id" size="30"/></td>
+            <td align="left"><form:errors path="id" cssClass="error"/></td>
+        </tr>
+        <tr>
+            <td align="left" width="20%">Фильм:</td>
+            <td align="left" width="20%">
+                <select id="film" name="film" size="1" style="width: 207px">
+                    <option value="0">Выберите фильм</option>
+                    <c:forEach items="${allfilms}" var="filmvar">
+                        <c:choose>
+                            <c:when test="${filmvar.id == film_select}">
+                                <option value="${filmvar.id}" selected="selected">
+                                    "${filmvar.title}" ${filmvar.genre} ${filmvar.year}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${filmvar.id}">
+                                    "${filmvar.title}" ${filmvar.genre} ${filmvar.year}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>
+            </td>
             <td align="left"><form:errors path="film" cssClass="error"/></td>
         </tr>
         <tr>
@@ -49,13 +71,18 @@
         </tr>
         <tr>
             <td align="left" width="20%">Статус билета:</td>
-            <td align="left" width="40%"><form:input path="status" size="30"/></td>
+            <td align="left" width="40%">
+                <form:select path="status" size="1" style="width: 207px">
+                    <form:option value="accepted" selected="selected">accepted</form:option>
+                    <form:option value="paid">paid</form:option>
+                    <form:option value="cancelled">cancelled</form:option>
+                </form:select></td>
             <td align="left"><form:errors path="status" cssClass="error"/></td>
         </tr>
         <tr>
             <td></td>
             <td align="center"><input type="submit" value="Отправить"/>
-            <input type="button" onclick="ListTickets()" value="Отмена"/></td>
+                <input type="button" onclick="ListTickets()" value="Отмена"/></td>
             <td></td>
         </tr>
     </form:form>

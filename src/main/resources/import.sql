@@ -1,0 +1,14 @@
+insert into films values (1,'boevik1','Rambo1',1991);
+insert into films values (2,'boevik2','Rambo2',1992);
+insert into films values (3,'boevik3','Rambo3',1993);
+insert into films values (4,'boevik4','Rambo4',1994);
+insert into films values (5,'boevik5','Rambo5',1995);
+insert into films values (6,'boevik6','Rambo6',1996);
+insert into films values (7,'boevik7','Rambo7',1997);
+insert into tickets values (1,'111@mail.ru',1,'111',1,1,'accepted',1);
+insert into tickets values (2,'222@mail.ru',2,'222',2,2,'paid',2);
+insert into tickets values (3,'333@mail.ru',3,'333',3,3,'cancelled',3);
+insert into tickets values (4,'444@mail.ru',1,'444',4,4,'accepted',1);
+insert into tickets values (5,'555@mail.ru',2,'555',5,5,'paid',2);
+insert into tickets values (6,'666@mail.ru',3,'666',6,6,'cancelled',3);
+insert into tickets values (7,'777@mail.ru',1,'777',7,7,'accepted',1);
