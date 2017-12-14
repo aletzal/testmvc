@@ -34,22 +34,22 @@ public class TicketEntity {
 
     @NumberFormat(style = Style.NUMBER)
 //    @Positive(message = "значение не может быть <=0.")
-    @Min(value = 1,message = "Введите целое число от 1 до 3.")
-    @Max(value = 3, message = "Введите целое число от 1 до 3.")
+//    @Min(value = 1,message = "Введите целое число от 1 до 3.")    // HSQLdb doesn't support token '>=', which is used by Hinernate ddl
+//    @Max(value = 3, message = "Введите целое число от 1 до 3.")   // HSQLdb doesn't support token '<=', which is used by Hinernate ddl
     @Column(name = "hall")
     private int hall;
 
     @NumberFormat(style = Style.NUMBER)
 //    @Positive (message = "значение не может быть <=0.")
-    @Min(value = 1,message = "Введите целое число от 1 до 30.")
-    @Max(value = 30, message = "Введите целое число от 1 до 30.")
+//    @Min(value = 1,message = "Введите целое число от 1 до 30.")
+//    @Max(value = 30, message = "Введите целое число от 1 до 30.")
     @Column(name = "row")
     private int row;
 
     @NumberFormat(style = Style.NUMBER)
 //    @Positive (message = "значение не может быть <=0.")
-    @Min(value = 1,message = "Введите целое число от 1 до 80.")
-    @Max(value = 80, message = "Введите целое число от 1 до 80.")
+//    @Min(value = 1,message = "Введите целое число от 1 до 80.")
+//    @Max(value = 80, message = "Введите целое число от 1 до 80.")
     @Column(name = "place")
     private int place;
 
